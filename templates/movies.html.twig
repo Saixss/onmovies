@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row gy-4 justify-content-md-start">
+        {% for movie in movies %}
+            <div class="col-md-auto">
+                <div>
+                    <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">
+                        <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}" class="movie-poster">
+                    </a>
+                    <div class="movie-details">
+                        <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">
+                            {{ movie.getTitle }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {{ pages|raw }}
+{% endblock %}

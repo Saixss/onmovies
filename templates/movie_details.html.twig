@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="movie">
+            <div class="row">
+                <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
+                    <div class="movie-img">
+                        <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}">
+                    </div>
+                    {% set classInactive = 'inactive' %}
+                    {% if isFavorite == true %}
+                        {% set classInactive = '' %}
+                    {% endif %}
+                    <div class="favorite-icon mt-2 {{ classInactive }}">
+                        <img src="{{ asset('build/images/icon_yellow-star.a7afdb1a.png') }}" alt="star-icon">
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-7">
+                    <div class="movie-text padding-50px-left sm-no-padding-left">
+                        <h4 class="font-size38 sm-font-size32 xs-font-size30 mb-auto">{{ movie.title }}</h4>
+                        <small class="small">
+                            {% for category in movie.categories %}
+                                {{ category.name }}
+                                {{ not loop.last ? ',' }}
+                            {% endfor %}
+                        </small>
+                        <p class="mb-5 mt-5">{{ movie.plot }}</p>
+                        <div class="contact-info-section margin-40px-tb">
+                            <ul class="list-style9 no-margin">
+                                <li>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-film text-orange"></i>
+                                            <strong class="margin-10px-left text-orange">Director: </strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.director }}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-pen text-sky"></i>
+                                            <strong class="margin-10px-left text-sky">Writers: </strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.writer }}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-cast text-lightred"></i>
+                                            <strong class="margin-10px-left text-lightred">Actors:</strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.actors }}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-flag text-green"></i>
+                                            <strong class="margin-10px-left text-green">Country:</strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.country }}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-calendar text-purple"></i>
+                                            <strong class="margin-10px-left xs-margin-four-left text-purple">Released:</strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.released|date('d-M-Y') }}</p>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-clock text-pink"></i>
+                                            <strong class="margin-10px-left xs-margin-four-left text-pink">Runtime:</strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.runtime|date('H:i:s') }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-5 col-5">
+                                            <i class="bi bi-star text-yellow"></i>
+                                            <strong class="margin-10px-left xs-margin-four-left text-yellow">Rating:</strong>
+                                        </div>
+                                        <div class="col-md-7 col-7">
+                                            <p>{{ movie.rating }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('addFavorite') }}
+{% endblock %}

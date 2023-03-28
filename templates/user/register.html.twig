@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        {% if errors|length > 0 %}
+            <div>{{ errors[0].message }}</div>
+        {% endif %}
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.firstName) }}
+                {{ form_widget(form.firstName) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.lastName) }}
+                {{ form_widget(form.lastName) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.password.first) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.password.second) }}
+            </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {{ form_row(form.save) }}
+        {{ form_end(form) }}
+
+{#        <form>#}
+{#            <div class="mb-3">#}
+{#                <label for="username" class="form-label">Username</label>#}
+{#                <input type="text" class="form-control" id="username">#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="email" class="form-label">Email address</label>#}
+{#                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">#}
+{#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="first-name" class="form-label">First Name</label>#}
+{#                <input type="text" class="form-control" id="first-name">#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="last-name" class="form-label">Last Name</label>#}
+{#                <input type="text" class="form-control" id="last-name">#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="password" class="form-label">Password</label>#}
+{#                <input type="password" class="form-control" id="password">#}
+{#            </div>#}
+{#            <div class="mb-3">#}
+{#                <label for="confirm-password" class="form-label">Confirm Password</label>#}
+{#                <input type="password" class="form-control" id="confirm-password">#}
+{#            </div>#}
+{#            <button type="submit" class="btn btn-primary">Submit</button>#}
+{#        </form>#}
+    </div>
+{% endblock %}
