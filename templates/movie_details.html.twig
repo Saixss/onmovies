@@ -8,13 +8,16 @@
                     <div class="movie-img">
                         <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}">
                     </div>
-                    {% set classInactive = 'inactive' %}
-                    {% if isFavorite == true %}
-                        {% set classInactive = '' %}
+                    {% if isLogged %}
+                        {% set classInactive = 'inactive' %}
+                        {% if isFavorite == true %}
+                            {% set classInactive = '' %}
+                        {% endif %}
+
+                        <div class="favorite-icon mt-2 {{ classInactive }}">
+                            <img src="{{ asset('build/images/icon_yellow-star.a7afdb1a.png') }}" alt="star-icon">
+                        </div>
                     {% endif %}
-                    <div class="favorite-icon mt-2 {{ classInactive }}">
-                        <img src="{{ asset('build/images/icon_yellow-star.a7afdb1a.png') }}" alt="star-icon">
-                    </div>
                 </div>
 
                 <div class="col-lg-8 col-md-7">

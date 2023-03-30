@@ -79,10 +79,11 @@ class MovieController extends AbstractController
         $currUser = $this->getUser();
 
         $isFavorite = false;
+        $isLogged = false;
 
         if ($currUser !== null) {
             $favorites = $currUser->getFavorites();
-
+            $isLogged = true;
             foreach ($favorites as $favorite) {
                 if($favorite->getId() == $id) {
                     $isFavorite = true;
@@ -95,7 +96,8 @@ class MovieController extends AbstractController
                 'movie' => $movie,
                 'categories' => $categories,
                 'movieCategory' => $movieCategory,
-                'isFavorite' => $isFavorite
+                'isFavorite' => $isFavorite,
+                'isLogged' => $isLogged
             ]
         );
     }
