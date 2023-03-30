@@ -46,6 +46,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profilePictureFilename = null;
+    
     public function __construct()
     {
         $this->favorites = new ArrayCollection();
@@ -177,5 +180,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
+    }
+
+    public function getProfilePictureFilename(): ?string
+    {
+        return $this->profilePictureFilename;
+    }
+
+    public function setProfilePictureFilename(?string $profilePictureFilename): self
+    {
+        $this->profilePictureFilename = $profilePictureFilename;
+
+        return $this;
+    }
+
+    public function getFullName(): ?string
+    {
+        return ucfirst($this->firstName) . " " . ucfirst($this->lastName);
     }
 }

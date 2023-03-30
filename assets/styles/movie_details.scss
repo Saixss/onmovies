@@ -46,12 +46,20 @@
   object-fit: cover;
 }
 
+.movie-poster:hover {
+  background-color: black;
+  opacity: 0.5;
+}
+
 .movie-details {
+  position: relative;
+  display: block;
   height: 60px;
   width: 162px;
-  padding: 5px;
   margin-left: auto;
   margin-right: auto;
+  padding-top: 10px;
+  top: 0;
   text-align: center;
   background-color: dimgrey;
   color: whitesmoke;
@@ -59,9 +67,12 @@
   overflow: hidden;
 }
 
-.movie-poster:hover {
-  background-color: black;
-  opacity: 0.5;
+.movie-details a {
+  display: block;
+  overflow: hidden;
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .movie-icons ul li {

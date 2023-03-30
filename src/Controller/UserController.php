@@ -5,18 +5,22 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Form\UserType;
 use App\Service\CategoryService;
 use App\Service\MovieService;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
@@ -74,10 +78,58 @@ class UserController extends AbstractController
     #[Route('/user/profile', name: 'user_profile')]
     public function profile(CategoryService $categoryService): Response
     {
+        $user = $this->getUser();
+
         $categories = $categoryService->getCategories();
 
         return $this->render('user/profile.html.twig',
-            ['categories' => $categories]);
+            [
+                'categories' => $categories,
+                'user' => $user,
+            ]);
+    }
+
+    #[Route('/user/edit-profile', name: 'user_edit_profile')]
+    public function editProfile(Request $request, SluggerInterface $slugger, CategoryService $categoryService, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $pictureFile */
+            $pictureFile = $form->get('profilePicture')->getData();
+
+            if ($pictureFile) {
+                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('profile_picture_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $exception) {
+                    echo $exception->getMessage();
+                }
+
+                $user->setProfilePictureFilename($newFilename);
+            }
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('user_profile');
+        }
+
+        $categories = $categoryService->getCategories();
+
+        return $this->render('user/edit_profile.html.twig',
+            [
+                'user' => $user,
+                'form' => $form,
+                'categories' => $categories
+            ]);
     }
 
     #[Route('/user/add-favorite/', name: 'add_favorite', methods: 'POST')]
