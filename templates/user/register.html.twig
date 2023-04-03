@@ -1,64 +1,88 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
-        {% if errors|length > 0 %}
-            <div>{{ errors[0].message }}</div>
-        {% endif %}
-        {{ form_start(form) }}
-            <div class="mb-3">
-                {{ form_label(form.username) }}
-                {{ form_widget(form.username) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(form.email) }}
-                {{ form_widget(form.email) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(form.firstName) }}
-                {{ form_widget(form.firstName) }}
-            </div>
-            <div class="mb-3">
-                {{ form_label(form.lastName) }}
-                {{ form_widget(form.lastName) }}
-            </div>
-            <div class="mb-3">
-                {{ form_row(form.password.first) }}
-            </div>
-            <div class="mb-3">
-                {{ form_row(form.password.second) }}
-            </div>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            {{ form_row(form.save) }}
-        {{ form_end(form) }}
 
-{#        <form>#}
-{#            <div class="mb-3">#}
-{#                <label for="username" class="form-label">Username</label>#}
-{#                <input type="text" class="form-control" id="username">#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="email" class="form-label">Email address</label>#}
-{#                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">#}
-{#                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="first-name" class="form-label">First Name</label>#}
-{#                <input type="text" class="form-control" id="first-name">#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="last-name" class="form-label">Last Name</label>#}
-{#                <input type="text" class="form-control" id="last-name">#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="password" class="form-label">Password</label>#}
-{#                <input type="password" class="form-control" id="password">#}
-{#            </div>#}
-{#            <div class="mb-3">#}
-{#                <label for="confirm-password" class="form-label">Confirm Password</label>#}
-{#                <input type="password" class="form-control" id="confirm-password">#}
-{#            </div>#}
-{#            <button type="submit" class="btn btn-primary">Submit</button>#}
-{#        </form>#}
-    </div>
+    <section class="vh-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 text-black">
+
+                    <div class="px-5 ms-xl-4 mt-5">
+                        <i class="fas fa-crow fa-2x me-3 pt-5 mt-xl-4" style="color: #709085;"></i>
+                        <span class="h1 fw-bold mb-0">ONMovies</span>
+                    </div>
+
+                    <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+                        {% if errors|length > 0 %}
+                            <div>{{ errors[0].message }}</div>
+                        {% endif %}
+                        {{ form_start(form, {'attr': {'style': 'width: 23rem;'}}) }}
+
+                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register</h3>
+
+                            <div class="form-outline mb-4">
+                                {{ form_label(form.username) }}
+                                {{ form_widget(form.username) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{ form_label(form.firstName) }}
+                                {{ form_widget(form.firstName) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{ form_label(form.lastName) }}
+                                {{ form_widget(form.lastName) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{ form_row(form.password.first) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <div class="form-outline mb-4">
+                                {{ form_row(form.password.second) }}
+{#                                {% if error %}#}
+{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
+{#                                {% endif %}#}
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <input type="hidden" name="_target_path" value="login">
+
+                            <div class="pt-1 mb-4">
+                                {{ form_row(form.save) }}
+                            </div>
+
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+                <div class="col-sm-6 px-0 d-none d-sm-block">
+                    <img src="https://townsquare.media/site/295/files/2020/09/horror.jpg"
+                         alt="Login image" class="w-100 vh-100" style="object-fit: cover; object-position: left;">
+                </div>
+            </div>
+        </div>
+    </section>
+
 {% endblock %}

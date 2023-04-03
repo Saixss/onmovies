@@ -14,7 +14,7 @@
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                         <form action="{{ path('login') }}" method="post" style="width: 23rem;">
 
-                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log in</h3>
+                            <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Login</h3>
 
                             <div class="form-outline mb-4">
                                 <input type="text" id="username" class="form-control form-control-lg" name="_username" value="{{ last_username }}" placeholder="Username" />
@@ -52,31 +52,4 @@
         </div>
     </section>
 
-{#    <h1>#}
-{#        <a href="{{ path('movie_index_1') }}">ONMovies</a>#}
-{#    </h1>#}
-{#    <div class="container min-vh-100 d-flex justify-content-center align-items-center">#}
-{#        <div class="row col-md-5 align-items-center" style="background: #7386D5; height: 50vh; border-radius: 0.375rem">#}
-{#            {% if error %}#}
-{#                <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#            {% endif %}#}
-{#            <div class="col p-5 m-3">#}
-{#                <form class="form-control-lg" action="{{ path('login') }}" method="post">#}
-{#                    <div class="mb-4">#}
-{#                        <label for="username" class="form-label" style="color: whitesmoke">Username</label>#}
-{#                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}">#}
-{#                    </div>#}
-{#                    <div class="mb-4">#}
-{#                        <label for="password" class="form-label" style="color: white">Password</label>#}
-{#                        <input type="password" class="form-control" id="password" name="_password">#}
-{#                    </div>#}
-{#                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">#}
-{#                    <input type="hidden" name="_target_path" value="home">#}
-{#                    <div class="mb-auto">#}
-{#                        <button type="submit" class="btn btn-primary btn-lg">Login</button>#}
-{#                    </div>#}
-{#                </form>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
 {% endblock %}

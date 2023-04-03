@@ -33,7 +33,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '4096k',
+                        'maxSize' => '10240k',
                         'mimeTypes' => [
                             'image/png',
                             'image/jpeg'

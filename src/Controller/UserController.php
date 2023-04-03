@@ -15,10 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -76,9 +78,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/profile', name: 'user_profile')]
-    public function profile(CategoryService $categoryService): Response
+    public function profile(#[CurrentUser] ?User $user, CategoryService $categoryService): Response|RedirectResponse
     {
-        $user = $this->getUser();
+       if ($user === null) {
+           return $this->redirectToRoute('login');
+       }
 
         $categories = $categoryService->getCategories();
 
@@ -90,9 +94,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit-profile', name: 'user_edit_profile')]
-    public function editProfile(Request $request, SluggerInterface $slugger, CategoryService $categoryService, EntityManagerInterface $entityManager)
+    public function editProfile(#[CurrentUser] ?User $user, Request $request, SluggerInterface $slugger, CategoryService $categoryService, EntityManagerInterface $entityManager): RedirectResponse|Response
     {
-        $user = $this->getUser();
+        if ($user === null) {
+            return $this->redirectToRoute('login');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
