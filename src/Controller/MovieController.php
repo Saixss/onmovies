@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\Movie;
+use App\Entity\User;
 use App\Service\CategoryService;
 use App\Service\MovieService;
 use App\Service\Paginator;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Twig\Environment;
 
 class MovieController extends AbstractController
@@ -33,7 +35,7 @@ class MovieController extends AbstractController
     }
     #[Route('/', name: 'movie_index_1')]
     #[Route('/movies', name: 'movie_index_2')]
-    #[Route('/movies/page/{!page}/', name: 'home', requirements: ['page' => '\d+'], priority: 5)]
+    #[Route('/movies/page/{!page}', name: 'home', requirements: ['page' => '\d+'], priority: 5)]
     public function home(Request $request,
                          $page = 1,
                          $sort = 'id',
@@ -69,20 +71,18 @@ class MovieController extends AbstractController
     }
 
     #[Route('/movie/{id}-{urlTitle}', name: 'movie_details')]
-    public function details(UserService $userService, string $id): Response
+    public function details(#[CurrentUser] ?User $user, string $id): Response
     {
         $movie = $this->movieService->getMovieById($id);
         $categories = $this->categoryService->getCategories();
 
         $movieCategory = $movie->getCategories();
 
-        $currUser = $this->getUser();
-
         $isFavorite = false;
         $isLogged = false;
 
-        if ($currUser !== null) {
-            $favorites = $currUser->getFavorites();
+        if ($user !== null) {
+            $favorites = $user->getFavorites();
             $isLogged = true;
             foreach ($favorites as $favorite) {
                 if($favorite->getId() == $id) {

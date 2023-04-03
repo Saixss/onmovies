@@ -55,6 +55,10 @@ class CategoryController extends AbstractController
         $pageFirstResult = ($page - 1) * $resultsPerPage;
         $movies = $this->movieService->getByCategoryName($genre, $pageFirstResult, $resultsPerPage, $sort, $order);
 
+        if ($movies->count() === 0) {
+            throw $this->createNotFoundException('Genre not found.');
+        }
+
         $this->movieService->setUrl($movies->getQuery()->getResult());
 
         $paginator = new Paginator($resultsPerPage, count($movies), $page);

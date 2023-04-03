@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Twig\Environment;
 
 class Paginator
@@ -21,11 +22,14 @@ class Paginator
     {
         $this->maxResults = $resultsPerPage;
         $this->resultCount = $resultCount;
-        $this->setPage($page);
         $this->setTotalPages();
+        $this->setPage($page);
     }
 
-    public function pages(Environment $twig, string $paginationTemplate, int $numOfVisiblePages, array $params = [])
+    public function pages(Environment $twig,
+                          string $paginationTemplate,
+                          int $numOfVisiblePages,
+                          array $params = []): string
     {
         if($numOfVisiblePages === 0) {
             $numOfVisiblePages = 1;
@@ -64,7 +68,7 @@ class Paginator
         return $paginationContents;
     }
 
-    public function prev()
+    public function prev(): ?int
     {
         if ($this->page > 1) {
             return $this->page - 1;
@@ -73,7 +77,7 @@ class Paginator
         }
     }
 
-    public function next()
+    public function next(): ?int
     {
         if ($this->page < $this->totalPages) {
             return $this->page + 1;
@@ -84,6 +88,10 @@ class Paginator
 
     private function setPage(int $page)
     {
+        if ($page > $this->totalPages) {
+            throw new NotFoundHttpException('Page not found.');
+        }
+
         $this->page = $page;
     }
 

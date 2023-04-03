@@ -7,12 +7,12 @@ use App\Entity\User;
 use App\Form\RegisterType;
 use App\Form\UserType;
 use App\Service\CategoryService;
+use App\Service\FileUploader;
 use App\Service\MovieService;
 use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,7 +22,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
@@ -94,7 +93,11 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/edit-profile', name: 'user_edit_profile')]
-    public function editProfile(#[CurrentUser] ?User $user, Request $request, SluggerInterface $slugger, CategoryService $categoryService, EntityManagerInterface $entityManager): RedirectResponse|Response
+    public function editProfile(#[CurrentUser] ?User $user,
+                                Request $request,
+                                CategoryService $categoryService,
+                                EntityManagerInterface $entityManager,
+                                FileUploader $fileUploader): RedirectResponse|Response
     {
         if ($user === null) {
             return $this->redirectToRoute('login');
@@ -108,19 +111,9 @@ class UserController extends AbstractController
             $pictureFile = $form->get('profilePicture')->getData();
 
             if ($pictureFile) {
-                $originalFilename = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $pictureFile->guessExtension();
+                $newFilename = $fileUploader->upload($pictureFile);
 
-                try {
-                    $pictureFile->move(
-                        $this->getParameter('profile_picture_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $exception) {
-                    echo $exception->getMessage();
-                }
-
+                $fileUploader->remove($user->getProfilePictureFilename());
                 $user->setProfilePictureFilename($newFilename);
             }
 
@@ -140,14 +133,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/add-favorite/', name: 'add_favorite', methods: 'POST')]
-    public function addFavoriteMovie(Request $request,
+    public function addFavoriteMovie(#[CurrentUser] ?User $user,
+                                     Request $request,
                                      MovieService $movieService,
-                                     EntityManagerInterface $entityManager,
-                                     UserService $userService): JsonResponse
+                                     EntityManagerInterface $entityManager): JsonResponse
     {
         $movieId = $request->request->get('movieId');
-
-        $user = $this->getUser();
 
         if (null === $user) {
             return $this->json([
@@ -155,10 +146,7 @@ class UserController extends AbstractController
             ], Response::HTTP_UNAUTHORIZED);
        }
 
-        $userId = $user->getId();
-
         $movie = $movieService->getMovieById($movieId);
-        $user = $userService->findById($userId);
 
         $user->addFavorite($movie);
 
