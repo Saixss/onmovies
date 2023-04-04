@@ -27,7 +27,9 @@ class UserType extends AbstractType
             ])
             ->add('profilePicture', FileType::class, [
                 'label' => false,
-                'attr' => ['style' => 'display: none'],
+                'attr' => [
+                    'style' => 'display: none',
+                ],
                 'action' => 'edit_profile',
                 'mapped' => false,
                 'required' => false,

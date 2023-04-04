@@ -18,6 +18,8 @@ import './bootstrap';
 
 import './icons/icon_yellow-star.png';
 
+import './scripts/edit-profile';
+
 import {
     categoryDropdownToggle,
     filtersDropdownToggle,

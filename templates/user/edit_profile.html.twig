@@ -15,8 +15,8 @@
                                     {% endif %}
                                     <div style="width: 150px; z-index: 1">
                                         <img src="{{ profilePicture }}"
-                                             alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                                             style="width: 100%; height: 200px">
+                                             alt="Generic placeholder image" id="profile-picture" class="img-fluid img-thumbnail mt-4 mb-2"
+                                             style="width: 100%; height: 200px; object-fit: fill;">
                                     </div>
                                     {{ form_row(form.profilePicture) }}
                                     <a type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
