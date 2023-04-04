@@ -9,7 +9,6 @@ use App\Form\UserType;
 use App\Service\CategoryService;
 use App\Service\FileUploader;
 use App\Service\MovieService;
-use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -140,20 +139,34 @@ class UserController extends AbstractController
     {
         $movieId = $request->request->get('movieId');
 
+        $message = 'Movie added to favorites.';
+
         if (null === $user) {
             return $this->json([
                  'message' => 'missing credentials',
             ], Response::HTTP_UNAUTHORIZED);
-       }
+        }
 
-        $movie = $movieService->getMovieById($movieId);
+        $favorites = $user->getFavorites();
+        $hasFavorite = false;
 
-        $user->addFavorite($movie);
+        foreach ($favorites as $favorite) {
+            if ($favorite->getId() === (int)$movieId) {
+                $user->removeFavorite($favorite);
+                $message = 'Movie removed from favorites.';
+                $hasFavorite = true;
+            }
+        }
+
+        if ($hasFavorite === false) {
+            $movie = $movieService->getMovieById($movieId);
+            $user->addFavorite($movie);
+        }
 
         $entityManager->flush();
 
         return $this->json(
-            'Movie added to favorites',
+            $message,
             headers: ['Content-Type' => 'application/json;charset=UTF-8']
         );
     }
