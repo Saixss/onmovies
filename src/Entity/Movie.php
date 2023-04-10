@@ -26,7 +26,7 @@ class Movie
     #[ORM\JoinTable(name: 'movie_category')]
     private Collection $categories;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorite')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorites')]
     private Collection $users;
 
     #[ORM\Column(length: 255)]
