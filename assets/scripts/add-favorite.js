@@ -18,7 +18,7 @@ $(document).ready(function () {
                 $('.favorite-icon').toggleClass('inactive');
                 let addToFavoritesEl = $('#add-to-favorites-msg');
                 addToFavoritesEl.html(data.htmlDisplayMessage);
-                addToFavoritesEl.css('color', 'green');
+                addToFavoritesEl.css('color', '#90EE90');
                 setTimeout(function() {
                     addToFavoritesEl.css('color', '');
                 }, 5000);
