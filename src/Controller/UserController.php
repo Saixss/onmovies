@@ -139,7 +139,9 @@ class UserController extends AbstractController
     {
         $movieId = $request->request->get('movieId');
 
-        $message = 'Movie added to favorites.';
+        $flashMessage = 'Movie added to favorites.';
+        $htmlDisplayMessage = 'Remove movie from favorites';
+        $isBtnActive = true;
 
         if (null === $user) {
             return $this->json([
@@ -153,7 +155,9 @@ class UserController extends AbstractController
         foreach ($favorites as $favorite) {
             if ($favorite->getId() === (int)$movieId) {
                 $user->removeFavorite($favorite);
-                $message = 'Movie removed from favorites.';
+                $flashMessage = 'Movie removed from favorites.';
+                $htmlDisplayMessage = 'Add movie to favorites';
+                $isBtnActive = false;
                 $hasFavorite = true;
             }
         }
@@ -166,7 +170,11 @@ class UserController extends AbstractController
         $entityManager->flush();
 
         return $this->json(
-            $message,
+            [
+                'flashMessage' => $flashMessage,
+                'htmlDisplayMessage' => $htmlDisplayMessage,
+                'isBtnActive' => $isBtnActive
+            ],
             headers: ['Content-Type' => 'application/json;charset=UTF-8']
         );
     }

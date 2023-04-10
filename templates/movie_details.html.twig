@@ -10,13 +10,18 @@
                     </div>
                     {% if isLogged %}
                         {% set classInactive = 'inactive' %}
+                        {% set addOrRemove = 'Add to favorites' %}
                         {% if isFavorite == true %}
                             {% set classInactive = '' %}
+                            {% set addOrRemove = 'Remove from favorites' %}
                         {% endif %}
 
                         <div class="favorite-icon mt-2 {{ classInactive }}">
                             <img src="{{ asset('build/images/icon_yellow-star.a7afdb1a.png') }}" alt="star-icon">
                         </div>
+                        <small id="add-to-favorites-msg" class="small" style="display: flex; justify-content: center">
+                            {{ addOrRemove }}
+                        </small>
                     {% endif %}
                 </div>
 

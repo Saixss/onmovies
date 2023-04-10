@@ -14,8 +14,14 @@ $(document).ready(function () {
             type: "POST",
             url: '/user/add-favorite/',
             data: {'movieId': movieId},
-            success: function () {
+            success: function (data) {
                 $('.favorite-icon').toggleClass('inactive');
+                let addToFavoritesEl = $('#add-to-favorites-msg');
+                addToFavoritesEl.html(data.htmlDisplayMessage);
+                addToFavoritesEl.css('color', 'green');
+                setTimeout(function() {
+                    addToFavoritesEl.css('color', '');
+                }, 5000);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown)
