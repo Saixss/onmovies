@@ -73,6 +73,8 @@ a, a:hover, a:focus {
   transform-origin: bottom left;
   /* Fixed position */
   height: 100vh;
+  min-height: 100vh;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
 }
