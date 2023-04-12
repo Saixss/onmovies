@@ -35,6 +35,10 @@
   .section-heading h5 {
     font-size: 24px
   }
+
+  .movie-text {
+    margin-top: 2em;
+  }
 }
 
 .movie-poster {
@@ -61,7 +65,8 @@
   padding-top: 10px;
   top: 0;
   text-align: center;
-  background-color: dimgrey;
+  /*background-color: dimgrey;*/
+  background: #41464b;
   color: whitesmoke;
   font-size: 14px;
   overflow: hidden;

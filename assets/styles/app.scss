@@ -13,7 +13,8 @@ html {
 body {
   height: 100%;
   font-family: 'Poppins', sans-serif;
-  background: #fafafa;
+  /*background: #fafafa;*/
+  background: #adb5bd;
 }
 
 p {
@@ -21,7 +22,8 @@ p {
   font-size: 1.1em;
   font-weight: 300;
   line-height: 1.7em;
-  color: #999;
+  /*color: #999;*/
+  color: #212529;
 }
 
 a, a:hover, a:focus {
@@ -52,6 +54,12 @@ a, a:hover, a:focus {
   margin: 40px 0;
 }
 
+#navbar-toggler {
+  background: #f5f5f5;
+  border-color: #212529;
+  cursor: pointer;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -67,7 +75,8 @@ a, a:hover, a:focus {
 #sidebar {
   min-width: 250px;
   max-width: 250px;
-  background: #7386D5;
+  /*background: #7386D5;*/
+  background: #41464b;
   color: #fff;
   transition: all 0.4s cubic-bezier(0.945, 0.020, 0.270, 0.665);
   transform-origin: bottom left;
@@ -86,12 +95,14 @@ a, a:hover, a:focus {
 
 #sidebar .sidebar-header {
   padding: 20px;
-  background: #6d7fcc;
+  /*background: #6d7fcc;*/
+  background: #212529;
 }
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b;
+  /*border-bottom: 1px solid #47748b;*/
+  border-bottom: 1px solid #212529;
 }
 
 #sidebar ul p {
@@ -111,7 +122,8 @@ a, a:hover, a:focus {
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
   color: #fff;
-  background: #6d7fcc;
+  /*background: #6d7fcc;*/
+  background: #adb5bd;
 }
 
 
@@ -130,13 +142,15 @@ a[data-toggle="collapse"] {
 ul ul a {
   font-size: 0.9em !important;
   padding-left: 30px !important;
-  background: #6d7fcc;
+  /*background: #6d7fcc;*/
+  background: #adb5bd;
 }
 
 #filtersSubmenu ul a {
   font-size: 0.9em !important;
   padding-left: 60px !important;
-  background: #6d7fcc;
+  /*background: #6d7fcc;*/
+  background: #adb5bd;
 }
 
 ul.CTAs {
@@ -157,7 +171,8 @@ a.download {
 }
 
 a.article, a.article:hover {
-  background: #6d7fcc !important;
+  /*background: #6d7fcc !important;*/
+  background: #adb5bd !important;
   color: #fff !important;
 }
 
@@ -177,6 +192,7 @@ a.article, a.article:hover {
   width: 40px;
   height: 40px;
   background: #f5f5f5;
+  border-color: #212529;
   cursor: pointer;
 }
 

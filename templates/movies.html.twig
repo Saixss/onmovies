@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="row gy-4 justify-content-md-start">
+    <div class="row gy-4 justify-content-start">
         {% for movie in movies %}
-            <div class="col-sm-auto">
+            <div class="col">
                 <div>
                     <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">
                         <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}" class="movie-poster">

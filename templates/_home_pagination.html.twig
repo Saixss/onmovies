@@ -1,6 +1,6 @@
 {% set queryParams = app.request.query.all %}
 <nav class="d-flex m-4 justify-content-center">
-    <ul class="pagination">
+    <ul class="pagination flex-wrap">
         {% if paginator.prev %}
             <li class="page-item lh-lg">
                 <a class="page-link" href="{{ path('home', {'page': paginator.prev}|merge(queryParams)) }}" aria-label="Previous">
