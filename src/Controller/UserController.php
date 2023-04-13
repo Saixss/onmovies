@@ -31,6 +31,10 @@ class UserController extends AbstractController
                              UserPasswordHasherInterface $passwordHasher,
                              ValidatorInterface $validator): Response
     {
+        if ($this->getUser() !== null) {
+            return $this->redirectToRoute('movie_index_1');
+        }
+
         $user = new User();
 
         $form = $this->createForm(RegisterType::class, $user);
@@ -61,6 +65,10 @@ class UserController extends AbstractController
     public function login(Request $request,
                           AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser() !== null) {
+            return $this->redirectToRoute('movie_index_1');
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
