@@ -36,6 +36,11 @@ class MovieService
        return $this->movieRepository->findByPage($pageFirstResult, $resultsPerPage, $sort, $order);
     }
 
+    public function getMoviesByTitle(string $name)
+    {
+        return $this->movieRepository->findBy(['title' => $name]);
+    }
+
     public function getMovieById(string $id): ?Movie
     {
         return $this->movieRepository->findOneBy(['id' => $id]);

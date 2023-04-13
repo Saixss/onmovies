@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-$(document).ready(function () {
+$(document).ready(() => {
     let favoriteBtn = $('.favorite-icon');
 
     let movieId = getMovieId();
@@ -19,7 +19,7 @@ $(document).ready(function () {
                 let addToFavoritesEl = $('#add-to-favorites-msg');
                 addToFavoritesEl.html(data.htmlDisplayMessage);
                 addToFavoritesEl.css('color', '#90EE90');
-                setTimeout(function() {
+                setTimeout(function () {
                     addToFavoritesEl.css('color', '');
                 }, 5000);
             },
@@ -29,8 +29,7 @@ $(document).ready(function () {
         });
     }
 
-    function getMovieId()
-    {
+    function getMovieId() {
         let url = window.location.href.split('/');
         let urlParams = url[url.length - 1];
 
