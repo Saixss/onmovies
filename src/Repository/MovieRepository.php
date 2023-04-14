@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Movie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -74,6 +75,22 @@ class MovieRepository extends ServiceEntityRepository
         return $paginator;
     }
 
+    public function findBySearchData(string $data)
+    {
+        $query = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('m.id', 'm.title', 'm.urlTitle')
+            ->from('App:Movie', 'm')
+            ->where('m.title LIKE :data')
+            ->setParameter('data', $data . '%')
+            ->setMaxResults('10')
+            ->getQuery();
+
+        $results = $query->getResult();
+
+        return $results;
+    }
+
 //    /**
 //     * @return Movie[] Returns an array of Movie objects
 //     */
@@ -98,4 +115,5 @@ class MovieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

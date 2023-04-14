@@ -60,6 +60,24 @@ a, a:hover, a:focus {
   cursor: pointer;
 }
 
+.list-autocomplete {
+  padding:0; }
+.list-autocomplete em {
+  font-style:normal;
+  background-color:#e1f2f9;
+}
+
+.list-autocomplete { padding:0; }
+.list-autocomplete em { font-style:normal; background-color:#e1f2f9; }
+
+.hasNoResults { color:#aaa; }
+.hasNoResults { display:block; padding:30px 15px; }
+.hasNoResults {  color:#aaa; }
+
+.dropdown-menu { padding:0; }
+.dropdown-item { line-height:30px; }
+.dropdown-menu hr { margin:0; }
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

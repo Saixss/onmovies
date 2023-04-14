@@ -25,11 +25,14 @@ import {
     sideNavbarToggle,
 } from "./scripts/side-navbar-control";
 
+import {search} from './scripts/search'
+
 $(document).ready(function () {
     sideNavbarToggle();
     categoryDropdownToggle();
     filtersDropdownToggle();
     ordersDropdownToggle();
+    search();
 });
 
 

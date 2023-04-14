@@ -96,7 +96,21 @@
                             {% endif %}
                         </ul>
                         <form method="post" action="{{ path('app_search') }}" class="d-flex" role="search">
-                            <input name="searchData" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <div class="dropdown open in">
+                                <input name="searchData" class="jAuto form-control me-2 dropdown-toggle"
+                                       type="search" placeholder="Search"
+                                       aria-label="Search" autocomplete="off">
+                                <div class="dropdown-menu">
+                                    <i class="hasNoResults">No matching results</i>
+                                    <div class="list-autocomplete">
+
+{#                                        <button type="button" class="dropdown-item">01 - Alpha  Barbuda</button>#}
+{#                                        <button type="button" class="dropdown-item">02 - Charlie Alpha</button>#}
+{#                                        <button type="button" class="dropdown-item">03 - Bravo Alpha</button>#}
+{#                                        <button type="button" class="dropdown-item">04 - Delta</button>#}
+                                    </div>
+                                </div>
+                            </div>
                             <button class="btn btn-outline-dark" type="submit">Search</button>
                         </form>
                     </div>

@@ -46,6 +46,10 @@ class MovieService
         return $this->movieRepository->findOneBy(['id' => $id]);
     }
 
+    public function getMoviesBySearchData(string $data) {
+        return $this->movieRepository->findBySearchData($data);
+    }
+
     public function getByCategoryName(string $categoryName, int $pageFirstResult, int $resultsPerPage, string $sort, string $order): Paginator
     {
         return $this->movieRepository->getByCategoryName($categoryName, $pageFirstResult, $resultsPerPage, $sort, $order);
