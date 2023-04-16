@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 export function search() {
     let input = $("input[name='searchData']");
+    let hasNoResults = $(".hasNoResults");
 
     const throttledSearch = _.throttle((value) => {
         $.ajax({
@@ -27,15 +28,15 @@ export function search() {
 
     function showTitles(movies) {
         let inputValue = input.val();
+        let dropdown = $('.dropdown-menu');
+        let list = dropdown.find('.list-autocomplete');
         if (inputValue === '') {
-            $('.dropdown-menu').removeClass('show');
+            dropdown.removeClass('show');
             return;
         }
 
-        let dropdown = $('.dropdown-menu');
         console.log(movies);
         if (movies.length !== 0) {
-            let list = dropdown.find('.list-autocomplete');
 
             list.empty();
 
@@ -49,8 +50,10 @@ export function search() {
             })
 
             dropdown.addClass('show');
+            hasNoResults.hide();
         } else {
-            $('.dropdown-menu').removeClass('show');
+            hasNoResults.show();
+            list.empty();
         }
     }
 }
