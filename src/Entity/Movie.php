@@ -9,6 +9,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
+#[ORM\Index(columns: ['title'], name: 'title_idx')]
+
 class Movie
 {
     #[ORM\Id]

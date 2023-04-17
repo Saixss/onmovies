@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import debounce from 'lodash.debounce';
 import _ from 'lodash';
 
 export function search() {
@@ -35,7 +34,6 @@ export function search() {
             return;
         }
 
-        console.log(movies);
         if (movies.length !== 0) {
 
             list.empty();
