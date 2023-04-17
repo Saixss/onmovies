@@ -6,17 +6,16 @@ export function search() {
     let hasNoResults = $(".hasNoResults");
 
     const throttledSearch = _.throttle((value) => {
-        $.ajax({
+        fetch('/api/search', {
             method: 'POST',
-            url: '/api/search',
-            data: {'searchData': value},
-            success: function (data) {
-                showTitles(data);
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
-            error: function (error) {
-                return error;
-            }
-        });
+            body: 'searchData=' + encodeURIComponent(value)
+        })
+            .then(response => response.json())
+            .then(data => showTitles(data))
+            .catch(error => console.error(error));
     }, 500);
 
     input.on('input propertyChange', () => {
@@ -37,7 +36,7 @@ export function search() {
         if (movies.length !== 0) {
 
             list.empty();
-
+            console.log(movies);
             movies.forEach(function (movie) {
                 let movieId = movie.id;
                 let movieUrlTitle = movie.urlTitle;
