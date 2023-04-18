@@ -3,24 +3,22 @@ import $ from 'jquery';
 export function sideNavbarToggle() {
     let sidebar = $('#sidebar');
     let btnCollapse = $('#sidebarCollapse');
-    let isActive = sessionStorage.getItem('sidebar');
-
-    if (isActive == null) {
-        isActive = '';
-    }
-
-    sidebar.attr("class", isActive) ;
-    btnCollapse.addClass(isActive) ;
 
     btnCollapse.on('click', function () {
-        sidebar.toggleClass('active');
-        btnCollapse.toggleClass('active');
+        sidebar.removeClass('hidden');
 
-        if (sidebar.attr("class") === undefined) {
-            sidebar.attr("class", '');
-        }
+        setTimeout(function () {
+            sidebar.toggleClass('active');
+            btnCollapse.toggleClass('active');
 
-        sessionStorage.setItem('sidebar', sidebar.attr('class'));
+            let active = '';
+
+            if (sidebar.hasClass('active')) {
+                active = 'active';
+            }
+
+            document.cookie = `sidenav=${active}`;
+        }, 100)
     });
 }
 

@@ -65,7 +65,7 @@ class MovieController extends AbstractController
                 'categories' => $categories,
                 'pages' => $pages,
                 'filters' => $filters,
-                'orders' => $orders
+                'orders' => $orders,
             ]
         );
     }

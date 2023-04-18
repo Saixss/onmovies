@@ -111,6 +111,10 @@ a, a:hover, a:focus {
   transform: rotateY(100deg);
 }
 
+#sidebar.hidden {
+  display: none;
+}
+
 #sidebar .sidebar-header {
   padding: 20px;
   /*background: #6d7fcc;*/
