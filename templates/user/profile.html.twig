@@ -51,7 +51,7 @@
                                 {% for favorite in user.favorites %}
 
                                         <div class="col-md-auto">
-                                            <div id="movie">
+                                            <div class="movie">
                                                 <a href="{{ path('movie_details', {'id': favorite.id, 'urlTitle': favorite.urlTitle}) }}">
                                                     <img src="{{ favorite.posterUrl }}"
                                                          alt="image 1" class="movie-poster">

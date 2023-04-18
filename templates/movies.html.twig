@@ -4,7 +4,7 @@
     <div class="row gy-4 justify-content-start">
         {% for movie in movies %}
             <div class="col">
-                <div id="movie">
+                <div class="movie">
                     <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">
                         <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}" class="movie-poster">
                     </a>
