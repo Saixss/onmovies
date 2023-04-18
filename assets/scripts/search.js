@@ -36,7 +36,7 @@ export function search() {
         if (movies.length !== 0) {
 
             list.empty();
-            console.log(movies);
+
             movies.forEach(function (movie) {
                 let movieId = movie.id;
                 let movieUrlTitle = movie.urlTitle;
