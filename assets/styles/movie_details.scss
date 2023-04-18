@@ -50,12 +50,6 @@
   object-fit: cover;
 }
 
-.movie:hover {
-  background-color: black;
-  opacity: 0.8;
-  transform: scale(1.1);
-}
-
 .movie-details {
   position: relative;
   display: block;
@@ -71,6 +65,18 @@
   color: whitesmoke;
   font-size: 14px;
   overflow: hidden;
+}
+
+.movie:hover .movie-poster {
+  background-color: black;
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.movie:hover .movie-details {
+  background-color: black;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .movie-details a {
