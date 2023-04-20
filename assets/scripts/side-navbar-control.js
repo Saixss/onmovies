@@ -4,6 +4,12 @@ export function sideNavbarToggle() {
     let sidebar = $('#sidebar');
     let btnCollapse = $('#sidebarCollapse');
 
+    let width = screen.width;
+
+    if (width <= 768) {
+        document.cookie = `sidenav=active;path=/`;
+    }
+
     btnCollapse.on('click', function () {
         sidebar.removeClass('hidden');
 
@@ -17,7 +23,18 @@ export function sideNavbarToggle() {
                 active = 'active';
             }
 
-            document.cookie = `sidenav=${active}`;
+            if (width > 768) {
+                document.cookie = `sidenav=${active};path=/`;
+            } else {
+                document.cookie = `sidenav=active;path=/`;
+            }
+
+            function removeCookie(sKey, sPath, sDomain) {
+                document.cookie = encodeURIComponent(sKey) +
+                    "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" +
+                    (sDomain ? "; domain=" + sDomain : "") +
+                    (sPath ? "; path=" + sPath : "");
+            }
         }, 100)
     });
 }

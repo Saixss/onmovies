@@ -250,11 +250,11 @@ a.article, a.article:hover {
     MEDIAQUERIES
 ----------------------------------------------------- */
 @media (max-width: 768px) {
-  #sidebar {
+  /*#sidebar {
     margin-left: -250px;
     transform: rotateY(90deg);
-  }
-  #sidebar.active {
+  }*/
+  /*#sidebar.active {
     margin-left: 0;
     transform: none;
   }
@@ -276,6 +276,6 @@ a.article, a.article:hover {
   }
   #sidebarCollapse.active span:last-of-type {
     transform: rotate(-45deg) translate(1px, -1px);
-  }
+  }*/
 
 }
