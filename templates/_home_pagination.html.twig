@@ -9,8 +9,14 @@
                 </a>
             </li>
         {% endif %}
+        {% set active = '' %}
         {% for i in visiblePages %}
-            <li class="page-item lh-lg">
+            {% if i == paginator.currPage %}
+                {% set active = 'active' %}
+            {% else %}
+                {% set active = '' %}
+            {% endif %}
+            <li class="page-item lh-lg {{ active }}">
                 {% if i != 1 %}
                 <a class="page-link" href="{{ path('home', { 'page': i }|merge(queryParams) ) }}">
                     {% else %}

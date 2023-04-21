@@ -86,6 +86,11 @@ class Paginator
         }
     }
 
+    public function currPage(): ?int
+    {
+        return $this->page;
+    }
+
     private function setPage(int $page)
     {
         if ($page > $this->totalPages) {
