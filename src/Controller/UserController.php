@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 
+use App\Entity\Movie;
 use App\Entity\User;
 use App\Form\RegisterType;
 use App\Form\UserType;
 use App\Service\CategoryService;
 use App\Service\FileUploader;
 use App\Service\MovieService;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +23,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class UserController extends AbstractController
@@ -84,19 +87,41 @@ class UserController extends AbstractController
     }
 
     #[Route('/user/profile', name: 'user_profile')]
-    public function profile(#[CurrentUser] ?User $user, CategoryService $categoryService): Response|RedirectResponse
+    public function profile(#[CurrentUser] ?User $user,
+                            CategoryService $categoryService,
+                            UserService $userService): Response|RedirectResponse
     {
-       if ($user === null) {
+        if ($user === null) {
            return $this->redirectToRoute('login');
-       }
+        }
 
         $categories = $categoryService->getCategories();
+
+        $favorites = $userService->getFavorites($user->getId(), 0);
 
         return $this->render('user/profile.html.twig',
             [
                 'categories' => $categories,
                 'user' => $user,
+                'favorites' => $favorites
             ]);
+    }
+
+    #[Route('/api/user/favorites/{!from}', methods: ['GET'])]
+    public function getFavorites(#[CurrentUser] ?User $user, UserService $userService, SerializerInterface $serializer, int $from = 1): JsonResponse
+    {
+        if ($user === null) {
+            return $this->json('', 401);
+        }
+
+        if ($from < 1) {
+            $from = 1;
+        }
+
+        $favorites = $userService->getFavorites($user->getId(), $from);
+        $favoritesSerialized = $serializer->serialize($favorites, 'json');
+
+        return $this->json($favoritesSerialized, 200, ['Content-type' => 'application/json']);
     }
 
     #[Route('/user/edit-profile', name: 'user_edit_profile')]

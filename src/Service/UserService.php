@@ -24,4 +24,9 @@ class UserService
     {
         return $this->userRepository->find($userId);
     }
+
+    public function getFavorites(int $userId, int $resultStart)
+    {
+        return $this->userRepository->findFavoritesByUserId($userId, $resultStart);
+    }
 }

@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('editProfile', './assets/scripts/edit-profile.js')
     .addEntry('addFavorite', './assets/scripts/add-favorite.js')
+    .addEntry('favorites', './assets/scripts/favorites.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

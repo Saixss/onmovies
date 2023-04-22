@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 #[ORM\Index(columns: ['title'], name: 'title_idx')]
@@ -26,9 +27,11 @@ class Movie
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'movies')]
     #[ORM\JoinTable(name: 'movie_category')]
+    #[Ignore]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'favorites')]
+    #[Ignore]
     private Collection $users;
 
     #[ORM\Column(length: 255)]

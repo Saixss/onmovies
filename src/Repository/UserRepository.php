@@ -45,36 +45,6 @@ class UserRepository extends ServiceEntityRepository
 
     public function findFavMovieById(string $movieId, string $userId)
     {
-
-//        $rsm = new ResultSetMapping();
-//
-//        $queryBuilder = $this->getEntityManager()
-//            ->createQueryBuilder()
-//            ->select('user')
-//            ->from('App:User', 'user')
-//            ->innerJoin('user.favorite', 'favorite')
-//            ->innerJoin('favorite.categories', 'categories')
-//            ->where('favorite.id = :movieId')
-//            ->andWhere('user.id = :userId')
-//            ->setParameter('movieId', $movieId)
-//            ->setParameter('userId', 32);
-//
-//        ->createNativeQuery('
-//            SELECT movie_id
-//            FROM user_movie
-//            WHERE
-//                user_movie.user_id = :userId
-//            AND
-//                user_movie.movie_id = :movieId
-//        ', $rsm);
-//
-//        $queryBuilder->setParameters(new ArrayCollection([
-//            new Parameter('userId', $userId),
-//            new Parameter('movieId', $movieId)
-//        ]));
-//
-//        return $queryBuilder->getResult();
-
         $entityManager = $this->getEntityManager();
 
         $qb = $entityManager->createQueryBuilder()
@@ -86,6 +56,24 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('movie.id = :movieId')
             ->setParameter('userId', $userId)
             ->setParameter('movieId', $movieId);
+
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
+
+    public function findFavoritesByUserId(int $userId, int $resultStart)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $qb = $entityManager->createQueryBuilder()
+            ->select('m')
+            ->from('App:Movie', 'm')
+            ->innerJoin('m.users', 'u')
+            ->where('u.id = :id')
+            ->setMaxResults(10)
+            ->setFirstResult($resultStart)
+            ->setParameter('id', $userId);
 
         $query = $qb->getQuery();
 
