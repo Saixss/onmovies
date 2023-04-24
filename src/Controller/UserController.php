@@ -172,8 +172,8 @@ class UserController extends AbstractController
     {
         $movieId = $request->request->get('movieId');
 
-        $flashMessage = 'Movie added to favorites.';
-        $htmlDisplayMessage = 'Remove movie from favorites';
+        $flashMessage = 'Added to favorites';
+        $htmlDisplayMessage = 'Remove favorite';
         $isBtnActive = true;
 
         if (null === $user) {
@@ -188,8 +188,8 @@ class UserController extends AbstractController
         foreach ($favorites as $favorite) {
             if ($favorite->getId() === (int)$movieId) {
                 $user->removeFavorite($favorite);
-                $flashMessage = 'Movie removed from favorites.';
-                $htmlDisplayMessage = 'Add movie to favorites';
+                $flashMessage = 'Removed from favorites';
+                $htmlDisplayMessage = 'Add favorite';
                 $isBtnActive = false;
                 $hasFavorite = true;
             }

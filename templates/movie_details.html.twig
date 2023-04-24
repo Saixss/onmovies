@@ -10,10 +10,10 @@
                     </div>
                     {% if isLogged %}
                         {% set classInactive = 'inactive' %}
-                        {% set addOrRemove = 'Add to favorites' %}
+                        {% set addOrRemove = 'Add favorite' %}
                         {% if isFavorite == true %}
                             {% set classInactive = '' %}
-                            {% set addOrRemove = 'Remove from favorites' %}
+                            {% set addOrRemove = 'Remove favorite' %}
                         {% endif %}
 
                         <div class="favorite-icon mt-2 {{ classInactive }}">

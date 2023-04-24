@@ -3,21 +3,40 @@ import $ from 'jquery';
 $(document).ready(function () {
     let showMoreEl = $('#show-more');
 
-    showMoreEl.on('click', function () {
-        let elCount = $('#movies').children().length;
+    async function getMovies(currElCount = 0){
+        let elCount = Number($('#movies').children().length) + Number(currElCount);
 
-        fetch(`/api/user/favorites/${elCount}`, {
-            method: 'GET',
-            headers: {'Content-type': 'application/json'},
-        })
-            .then(response => response.json())
-            .then(data => showFavorites(data))
-            .catch(error => console.error(error));
-    });
+        try {
+            const response = await fetch(`/api/user/favorites/${elCount}`, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' },
+            });
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
-    function showFavorites(movies) {
+    showMoreEl.on('click', showFavorites);
 
+    async function removeButton(currElCount) {
+
+        let data = await getMovies(currElCount);
+        data = JSON.parse(data);
+
+        if (data.length === 0) {
+            showMoreEl.css('visibility', 'hidden');
+        }
+    }
+
+    async function showFavorites() {
+
+        let movies = await getMovies();
         movies = JSON.parse(movies);
+
+        await removeButton(movies.length);
 
         movies.forEach(function (movie) {
             let movieId = movie.id;
