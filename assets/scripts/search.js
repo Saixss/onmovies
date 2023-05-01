@@ -42,7 +42,7 @@ export function search() {
                 let movieUrlTitle = movie.urlTitle;
                 let movieTitle = movie.title;
 
-                let aEl = $(`<a href=/movie/${movieId}-${movieUrlTitle}" class="dropdown-item">${movieTitle}</a>`);
+                let aEl = $(`<a href=/movie/${movieId}-${movieUrlTitle}" class="dropdown-item" style="overflow: hidden; width: 340px">${movieTitle}</a>`);
                 list.append(aEl);
             })
 
