@@ -34,6 +34,11 @@ export function search() {
 
     function showTitles(movies) {
 
+        if (!input.val()) {
+            dropdown.removeClass('show');
+            return;
+        }
+
         dropdown.addClass('show');
 
         if (movies.length !== 0) {
