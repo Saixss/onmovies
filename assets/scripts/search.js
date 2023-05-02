@@ -4,34 +4,37 @@ import _ from 'lodash';
 export function search() {
     let input = $("input[name='searchData']");
     let hasNoResults = $(".hasNoResults");
+    let dropdown = $('.dropdown-menu');
+    let list = dropdown.find('.list-autocomplete');
 
-    const throttledSearch = _.throttle((value) => {
+    const fetchData = _.debounce((input) => {
+
+        let inputValue = input.val().trim();
+
+        if (!inputValue) {
+            dropdown.removeClass('show');
+            return;
+        }
+
         fetch('/api/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: 'searchData=' + encodeURIComponent(value)
+            body: 'searchData=' + encodeURIComponent(inputValue)
         })
             .then(response => response.json())
             .then(data => showTitles(data))
             .catch(error => console.error(error));
-    }, 500);
+    }, 300);
 
-    input.on('input propertyChange', () => {
-
-        let inputValue = input.val();
-        throttledSearch(inputValue);
+    input.on('input propertyChange', function () {
+        fetchData($(this));
     });
 
     function showTitles(movies) {
-        let inputValue = input.val();
-        let dropdown = $('.dropdown-menu');
-        let list = dropdown.find('.list-autocomplete');
-        if (inputValue === '') {
-            dropdown.removeClass('show');
-            return;
-        }
+
+        dropdown.addClass('show');
 
         if (movies.length !== 0) {
 
@@ -46,7 +49,6 @@ export function search() {
                 list.append(aEl);
             })
 
-            dropdown.addClass('show');
             hasNoResults.hide();
         } else {
             hasNoResults.show();
