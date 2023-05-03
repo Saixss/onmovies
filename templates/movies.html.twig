@@ -6,7 +6,9 @@
             <div class="col">
                 <div class="movie">
                     <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">
-                        <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}" class="movie-poster">
+                        <object data="{{ movie.posterUrl }}" type="image/jpg" class="movie-poster">
+                            <img src="{{ asset('build/images/movie/vecteezy_icon-image-not-found-vector_.jpg') }}" alt="Poster not found">
+                        </object>
                     </a>
                     <div class="movie-details">
                         <a href="{{ path('movie_details', {'id': movie.id, 'urlTitle': movie.urlTitle }) }}">

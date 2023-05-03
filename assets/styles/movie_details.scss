@@ -47,7 +47,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .movie-details {
@@ -164,7 +164,16 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  object-fit: cover
+  object-fit: fill;
+}
+
+object:has(img) {
+  height: 320px;
+  width: 216px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: fill;
 }
 
 .list-style9 {

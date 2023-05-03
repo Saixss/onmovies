@@ -6,7 +6,9 @@
             <div class="row">
                 <div class="col-lg-4 col-md-5 xs-margin-30px-bottom">
                     <div class="movie-img">
-                        <img src="{{ movie.posterUrl }}" alt="{{ movie.title }}">
+                        <object data="{{ movie.posterUrl }}" type="image/jpg">
+                            <img src="{{ asset('build/images/movie/vecteezy_icon-image-not-found-vector_.jpg') }}" alt="Poster not found">
+                        </object>
                     </div>
                     {% if isLogged %}
                         {% set classInactive = 'inactive' %}
