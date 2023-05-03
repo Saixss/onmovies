@@ -28,7 +28,7 @@ export function search() {
             .catch(error => console.error(error));
     }, 300);
 
-    input.on('input propertyChange', function () {
+    input.on('input', function () {
         fetchData($(this));
     });
 
@@ -50,7 +50,7 @@ export function search() {
                 let movieUrlTitle = movie.urlTitle;
                 let movieTitle = movie.title;
 
-                let aEl = $(`<a href=/movie/${movieId}-${movieUrlTitle}" class="dropdown-item" style="overflow: hidden; width: 340px">${movieTitle}</a>`);
+                let aEl = $(`<a href="/movie/${movieId}-${movieUrlTitle}" class="dropdown-item" style="overflow: hidden; width: 340px">${movieTitle}</a>`);
                 list.append(aEl);
             })
 
