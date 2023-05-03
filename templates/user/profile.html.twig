@@ -51,8 +51,9 @@
                                     <div class="col-md-auto">
                                         <div class="movie">
                                             <a href="{{ path('movie_details', {'id': favorite.id, 'urlTitle': favorite.urlTitle}) }}">
-                                                <img src="{{ favorite.posterUrl }}"
-                                                     alt="{{ favorite.title }}" class="movie-poster">
+                                                <object data="{{ favorite.posterUrl }}" type="image/jpg" class="movie-poster">
+                                                    <img src="{{ asset('build/images/movie/vecteezy_icon-image-not-found-vector_.jpg') }}" alt="Poster not found">
+                                                </object>
                                             </a>
                                         </div>
                                     </div>
