@@ -13,57 +13,40 @@
                     </div>
 
                     <div class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
-                        {% if errors|length > 0 %}
-                            <div>{{ errors[0].message }}</div>
-                        {% endif %}
                         {{ form_start(form, {'attr': {'style': 'width: 23rem;'}}) }}
 
                             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Register</h3>
 
+                            {% if errors|length > 0 %}
+                                <div class="is-invalid" style="color: #a52834">{{ errors[0].message }}</div>
+                            {% endif %}
+
                             <div class="form-outline mb-4">
                                 {{ form_label(form.username) }}
                                 {{ form_widget(form.username) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <div class="form-outline mb-4">
                                 {{ form_label(form.email) }}
                                 {{ form_widget(form.email) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <div class="form-outline mb-4">
                                 {{ form_label(form.firstName) }}
                                 {{ form_widget(form.firstName) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <div class="form-outline mb-4">
                                 {{ form_label(form.lastName) }}
                                 {{ form_widget(form.lastName) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <div class="form-outline mb-4">
                                 {{ form_row(form.password.first) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <div class="form-outline mb-4">
                                 {{ form_row(form.password.second) }}
-{#                                {% if error %}#}
-{#                                    <div class="invalid-feedback">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-{#                                {% endif %}#}
                             </div>
 
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
